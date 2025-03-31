@@ -1,7 +1,9 @@
 FROM caddy:builder AS builder
 
-RUN xcaddy build \
+RUN GOTOOLCHAIN=go1.24.1 xcaddy build \
     --with github.com/mholt/caddy-webdav \
+    --with github.com/mholt/caddy-l4 \
+    --with github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@naive \
     --with github.com/WeidiDeng/caddy-cloudflare-ip \
     --with github.com/caddy-dns/cloudflare \
     --with github.com/greenpau/caddy-security \
