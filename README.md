@@ -19,6 +19,8 @@ docker pull ghcr.io/cyruz-git/caddy-docker-custom:latest
 **Modules**
 
 * [http.handlers.webdav](https://github.com/mholt/caddy-webdav)
+* [layer4](https://github.com/mholt/caddy-l4)
+* [klzgrad's forwardproxy fork](https://github.com/klzgrad/forwardproxy) of [forwardproxy](https://github.com/caddyserver/forwardproxy)
 * [http.ip_sources.cloudflare](https://github.com/WeidiDeng/caddy-cloudflare-ip)
 * [dns.providers.cloudflare](https://github.com/caddy-dns/cloudflare)
 * [security](https://github.com/greenpau/caddy-security)
