@@ -1,6 +1,6 @@
 FROM caddy:builder AS builder
 
-RUN GOTOOLCHAIN=go1.24.1 xcaddy build \
+RUN xcaddy build \
     --with github.com/mholt/caddy-webdav \
     --with github.com/mholt/caddy-l4 \
     --with github.com/caddyserver/forwardproxy \
