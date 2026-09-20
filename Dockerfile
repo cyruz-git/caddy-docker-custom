@@ -15,15 +15,22 @@ RUN xcaddy build \
 
 FROM caddy:latest
 
+# su-exec is used to drop privileges after container startup.
 RUN apk add --no-cache su-exec
 
+# Replace the stock Caddy binary with our custom build.
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
 
-# COPY replaces the original Caddy binary, therefore restore
-# the capability needed to bind privileged ports as non-root.
-RUN setcap cap_net_bind_service=+ep /usr/bin/caddy
+# COPY replaces the binary provided by the official image, therefore
+# restore the capability required to bind ports < 1024 as non-root.
+RUN chmod 0755 /usr/bin/caddy \
+    && setcap cap_net_bind_service=+ep /usr/bin/caddy
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN chmod 0755 /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+# Must be explicitly defined because setting ENTRYPOINT resets
+# the CMD inherited from the base image.
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
