@@ -1,5 +1,5 @@
 # caddy-docker-custom
-Caddy Web Server with a series of additional modules (see **Modules**).
+Caddy Web Server running as user, with a series of additional modules (see **Modules**).
 
 [![Docker Build and Publish](https://github.com/cyruz-git/caddy-docker-custom/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/cyruz-git/caddy-docker-custom/actions/workflows/docker-publish.yml)
 
