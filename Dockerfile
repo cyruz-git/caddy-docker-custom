@@ -15,4 +15,15 @@ RUN xcaddy build \
 
 FROM caddy:latest
 
+RUN apk add --no-cache su-exec
+
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+
+# COPY replaces the original Caddy binary, therefore restore
+# the capability needed to bind privileged ports as non-root.
+RUN setcap cap_net_bind_service=+ep /usr/bin/caddy
+
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod 0755 /usr/local/bin/docker-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
